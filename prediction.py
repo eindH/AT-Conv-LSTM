@@ -17,6 +17,7 @@ from keras.layers.convolutional import Conv1D,Conv2D
 from keras.layers.pooling import MaxPooling1D,AveragePooling1D
 from keras.models import load_model
 from attention import AttentionLayer
+from attention_with_context import AttentionWithContext
 from keras.layers.wrappers import TimeDistributed
 from keras.utils import CustomObjectScope
 from keras.callbacks import ModelCheckpoint
@@ -107,12 +108,12 @@ test_w = np.reshape(test_w,(test_w.shape[0], test_w.shape[1], 1))
 # print("Save model to disk")
 
 #load model
-with CustomObjectScope({'AttentionLayer': AttentionLayer}):
+with CustomObjectScope({'AttentionLayer': AttentionLayer,'AttentionWithContext':AttentionWithContext}):
 	json_file = open('model/conv_lstm.json', 'r')
 	loaded_model_json = json_file.read()
 	json_file.close()
 	cnn_lstm_model = model_from_json(loaded_model_json)
-	cnn_lstm_model.load_weights("model/model_0002-0.1149.h5", 'r')
+	cnn_lstm_model.load_weights("model/model_0040-0.0033.h5", 'r')
 
 
 # start =time.clock()
@@ -130,6 +131,8 @@ l_real = np.array(l_real)
 print ("MAE:", MAE(p_real, l_real))
 print ("MAPE:", MAPE(p_real, l_real))
 print ("RMSE:", RMSE(p_real, l_real))
+
+print(p_real)
 
 # end = time.clock()
 
