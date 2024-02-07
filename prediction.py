@@ -132,7 +132,8 @@ print ("MAE:", MAE(p_real, l_real))
 print ("MAPE:", MAPE(p_real, l_real))
 print ("RMSE:", RMSE(p_real, l_real))
 
-print(p_real)
+for i in range(0,len(p_real)):
+	print(p_real[i])
 
 # end = time.clock()
 
