@@ -6,3 +6,4 @@ Check the requirements.txt for the packages and versions. This was run on a mach
 
 * Windows 10
 * Python 3.7.16
+* Anaconda 23.7.4
