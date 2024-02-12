@@ -68,11 +68,11 @@ def load_csv(fir_dir, col, scenario):
         file_name.append(os.path.join(fir_dir, i))
     all_data = []
     for filename in file_name:
-        print(file_name)
         csvfile = open(filename,'r')
         reader = csv.reader(csvfile)
         a = []
         for line in reader:
+
             a.append(line)
         b = []
         for i in range(len(a)):
