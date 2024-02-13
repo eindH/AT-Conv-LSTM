@@ -26,13 +26,8 @@ from keras.callbacks import Callback
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'data-freeway/10105110', 8, "freeway")
-data2 = load_csv(r'data-freeway/10105310', 8, "freeway")
-data3 = load_csv(r'data-freeway/10105510', 8, "freeway")
-data4 = load_csv(r'data-freeway/10108210', 8, "freeway")
-data5 = load_csv(r'data-freeway/10106510', 8, "freeway")
-data6 = load_csv(r'data-freeway/1095110', 8, "freeway")
-data7 = load_csv(r'data-freeway/1095510', 8, "freeway")
+data1 = load_csv(r'temperature_data', 2, "temperature1")
+data2 = load_csv(r'temperature_data', 2, "temperature2")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -52,7 +47,7 @@ pre_sens_num = 1
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
-	= generate_data(data1, data2, data3, data4, data5, data6, data7, seq_len, pre_len, pre_sens_num)
+	= generate_data(data1, data2, seq_len, pre_len, pre_sens_num)
 
 train_data = np.reshape(train_data,(train_data.shape[0], train_data.shape[1], train_data.shape[2], 1))
 train_w = np.reshape(train_w,(train_w.shape[0], train_w.shape[1], 1))
@@ -113,11 +108,13 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer,'AttentionWithContext':
 	loaded_model_json = json_file.read()
 	json_file.close()
 	cnn_lstm_model = model_from_json(loaded_model_json)
-	cnn_lstm_model.load_weights("model/model_0040-0.0033.h5", 'r')
+	cnn_lstm_model.load_weights("model/model_0005-0.0050.h5", 'r')
 
 
 # start =time.clock()
 predicted = predict_point_by_point(cnn_lstm_model, [test_data,test_w,test_d])
+
+plt.plot(predicted)
 
 p_real = []
 l_real = []

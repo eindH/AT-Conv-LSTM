@@ -35,8 +35,8 @@ def load_data(data, seq_len=15, his=1, pre_sens_num=1):
     label = np.array(label)
     return x_data,x_w,x_d,label,med,min
 
-def generate_data(data1, data2, data3, data4, data5, data6, data7, seq_len, pre_len, pre_sens_num):
-    data = np.stack((data1, data2, data3, data4, data5, data6, data7), axis=1)
+def generate_data(data1, data2, seq_len, pre_len, pre_sens_num):
+    data = np.stack((data1, data2), axis=1)
     x_data, x_w, x_d, label, med, min = load_data(data, seq_len ,pre_len, pre_sens_num)
 
     row = 2016
@@ -55,14 +55,12 @@ def generate_data(data1, data2, data3, data4, data5, data6, data7, seq_len, pre_
 
 def load_csv(fir_dir, col, scenario):
     file_all = []
-    if scenario == "freeway":
-        file_all=['11.csv','12.csv','13.csv','14.csv','15.csv','16.csv','17.csv','18.csv','19.csv',
-        '20.csv','21.csv','22.csv','23.csv','24.csv','25.csv','26.csv','27.csv','28.csv','29.csv',
-        '30.csv','31.csv','32.csv','33.csv','34.csv']
-    if scenario == "urban":
-        file_all=['1.csv','2.csv','3.csv','4.csv','5.csv','6.csv','7.csv','8.csv','9.csv',
-        '10.csv', '11.csv','12.csv','13.csv','14.csv','15.csv','16.csv','17.csv','18.csv','19.csv',
-        '20.csv', '21.csv','22.csv','23.csv','24.csv']
+    if scenario == "temperature1":
+        file_all=['17_temperature.csv','18_temperature.csv','19_temperature.csv',
+                  '21_temperature.csv','25_temperature.csv']
+    if scenario == "temperature2":
+        file_all=['26_temperature.csv','27_temperature.csv','28_temperature.csv',
+                  '29_temperature.csv','30_temperature.csv']
     file_name = []
     for i in file_all:
         file_name.append(os.path.join(fir_dir, i))
@@ -80,5 +78,8 @@ def load_csv(fir_dir, col, scenario):
         data = b[1:]
         all_data.extend(data)
         csvfile.close()
+    #for i in range(len(all_data)):
+    #    print(i, all_data[i])
+    #    print(i, all_data[i], float(all_data[i]))
     data = np.array(all_data,dtype=float)
     return data
