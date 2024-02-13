@@ -22,12 +22,16 @@ from keras.layers.wrappers import TimeDistributed
 from keras.utils import CustomObjectScope
 from keras.callbacks import ModelCheckpoint
 from keras.callbacks import Callback
+import sys
 
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'temperature_data', 2, "temperature1")
-data2 = load_csv(r'temperature_data', 2, "temperature2")
+#data1 = load_csv(r'temperature_data', 2, "temperature1")
+#data2 = load_csv(r'temperature_data', 2, "temperature2")
+
+data1 = load_csv(r'weather_data\pressure', 2, "pressure1")
+data2 = load_csv(r'weather_data\pressure', 2, "pressure2")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")

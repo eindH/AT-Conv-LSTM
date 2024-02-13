@@ -35,8 +35,8 @@ def load_data(data, seq_len=15, his=1, pre_sens_num=1):
     label = np.array(label)
     return x_data,x_w,x_d,label,med,min
 
-def generate_data(data1, data2, seq_len, pre_len, pre_sens_num):
-    data = np.stack((data1, data2), axis=1)
+def generate_data(data1, data2, data3, data4, seq_len, pre_len, pre_sens_num):
+    data = np.stack((data1, data2, data3, data4), axis=1)
     x_data, x_w, x_d, label, med, min = load_data(data, seq_len ,pre_len, pre_sens_num)
 
     row = 2016
@@ -61,6 +61,12 @@ def load_csv(fir_dir, col, scenario):
     if scenario == "temperature2":
         file_all=['26_temperature.csv','27_temperature.csv','28_temperature.csv',
                   '29_temperature.csv','30_temperature.csv']
+    if scenario == "pressure1":
+        file_all=['17_pressure.csv','18_pressure.csv','19_pressure.csv',
+                  '21_pressure.csv','25_pressure.csv']
+    if scenario == "pressure2":
+        file_all=['26_pressure.csv','27_pressure.csv','28_pressure.csv',
+                  '29_pressure.csv','30_pressure.csv']
     file_name = []
     for i in file_all:
         file_name.append(os.path.join(fir_dir, i))

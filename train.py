@@ -27,9 +27,15 @@ print('loading data...')
 # data6 = load_csv(r'data-freeway\1095110', 8, "freeway")
 # data7 = load_csv(r'data-freeway\1095510', 8, "freeway")
 
-data1 = load_csv(r'temperature_data', 2, "temperature1")
-data2 = load_csv(r'temperature_data', 2, "temperature2")
-print('Made it here')
+print('loading data...')
+data1 = load_csv(r'weather_data\temperature', 2, "temperature1")
+data2 = load_csv(r'weather_data\temperature', 2, "temperature2")
+data3 = load_csv(r'weather_data\pressure', 2, "pressure1")
+data4 = load_csv(r'weather_data\pressure', 2, "pressure2")
+
+data1 = data1[0:222170]
+data2 = data2[0:222170]
+
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
 # data3 = load_csv(r'data-urban/401413', 11, "urban")
@@ -49,7 +55,7 @@ pre_sens_num = 1
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
-	= generate_data(data1, data2, seq_len, pre_len, pre_sens_num)
+	= generate_data(data1, data2, data3, data4, seq_len, pre_len, pre_sens_num)
 print('Made it here 1')
 train_data = np.reshape(train_data,(train_data.shape[0], train_data.shape[1], train_data.shape[2], 1))
 train_w = np.reshape(train_w,(train_w.shape[0], train_w.shape[1], 1))
@@ -61,7 +67,7 @@ test_w = np.reshape(test_w,(test_w.shape[0], test_w.shape[1], 1))
 
 print('Made it here 3')
 # conv-lstm
-main_input = Input((15, 2, 1),name='main_input')
+main_input = Input((15, 4, 1),name='main_input')
 con1 = TimeDistributed(Conv1D(filters=15, kernel_size=3, padding='same', activation='relu', strides=1))(main_input)
 con2 = TimeDistributed(Conv1D(filters=15, kernel_size=3, padding='same', activation='relu', strides=1))(con1)
 #con3 = TimeDistributed(AveragePooling1D(pool_size=2))(con2)
