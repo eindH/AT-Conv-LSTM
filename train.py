@@ -1,4 +1,5 @@
 import os
+import sys
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 os.environ['KERAS_BACKEND'] = 'tensorflow'
 import keras
@@ -19,13 +20,12 @@ from keras.callbacks import ModelCheckpoint
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'data-freeway\10105110', 8, "freeway")
-data2 = load_csv(r'data-freeway\10105310', 8, "freeway")
-data3 = load_csv(r'data-freeway\10105510', 8, "freeway")
-data4 = load_csv(r'data-freeway\10108210', 8, "freeway")
-data5 = load_csv(r'data-freeway\10106510', 8, "freeway")
-data6 = load_csv(r'data-freeway\1095110', 8, "freeway")
-data7 = load_csv(r'data-freeway\1095510', 8, "freeway")
+data1 = load_csv(r'basel_data', 1, "basel_data")
+data2 = load_csv(r'basel_data', 2, "basel_data")
+data3 = load_csv(r'basel_data', 3, "basel_data")
+data4 = load_csv(r'basel_data', 4, "basel_data")
+data5 = load_csv(r'basel_data', 5, "basel_data")
+data6 = load_csv(r'basel_data', 6, "basel_data")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -46,7 +46,7 @@ pre_sens_num = 1
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
-	= generate_data(data1, data2, data3, data4, data5, data6, data7, seq_len, pre_len, pre_sens_num)
+	= generate_data(data1, data2, data3, data4, data5, data6, seq_len, pre_len, pre_sens_num)
 
 train_data = np.reshape(train_data,(train_data.shape[0], train_data.shape[1], train_data.shape[2], 1))
 train_w = np.reshape(train_w,(train_w.shape[0], train_w.shape[1], 1))
@@ -56,9 +56,8 @@ test_data = np.reshape(test_data,(test_data.shape[0], test_data.shape[1], test_d
 test_d = np.reshape(test_d,(test_d.shape[0], test_d.shape[1], 1))
 test_w = np.reshape(test_w,(test_w.shape[0], test_w.shape[1], 1))
 
-
 # conv-lstm
-main_input = Input((15, 7, 1),name='main_input')
+main_input = Input((15, 6, 1),name='main_input')
 con1 = TimeDistributed(Conv1D(filters=15, kernel_size=3, padding='same', activation='relu', strides=1))(main_input)
 con2 = TimeDistributed(Conv1D(filters=15, kernel_size=3, padding='same', activation='relu', strides=1))(con1)
 #con3 = TimeDistributed(AveragePooling1D(pool_size=2))(con2)
@@ -92,12 +91,12 @@ filepath = "model/model_{epoch:04d}-{val_loss:.4f}.h5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=True,
                              mode='min',period=5)
 callbacks_list = [checkpoint]
-
 print('Train...')
 model.fit([train_data, train_w, train_d], label,
 		  batch_size=128, epochs=epoch, validation_split=0.15, verbose=2,
 		  class_weight='auto', callbacks=callbacks_list)
 model_json = model.to_json()
+
 with open("model/conv_lstm.json", "w") as json_file:
     json_file.write(model_json)
 print("Save model to disk")
