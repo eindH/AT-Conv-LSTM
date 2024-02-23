@@ -1,6 +1,7 @@
 import numpy as np
 from data_preparation import *
 from utils import *
+import sys
 import csv
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
@@ -26,12 +27,12 @@ from keras.callbacks import Callback
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'basel_data', 1, "basel_data")
+data1 = load_csv(r'basel_data', 6, "basel_data")
 data2 = load_csv(r'basel_data', 2, "basel_data")
 data3 = load_csv(r'basel_data', 3, "basel_data")
 data4 = load_csv(r'basel_data', 4, "basel_data")
 data5 = load_csv(r'basel_data', 5, "basel_data")
-data6 = load_csv(r'basel_data', 6, "basel_data")
+data6 = load_csv(r'basel_data', 1, "basel_data")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -112,15 +113,27 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer,'AttentionWithContext':
 	loaded_model_json = json_file.read()
 	json_file.close()
 	cnn_lstm_model = model_from_json(loaded_model_json)
-	cnn_lstm_model.load_weights("model/model_0035-0.0006.h5", 'r')
+	cnn_lstm_model.load_weights("model/model_0005-0.0001.h5", 'r')
 
 
 # start =time.clock()
 predicted = predict_point_by_point(cnn_lstm_model, [test_data,test_w,test_d])
+pred_med = np.max(predicted) - np.min(predicted)
+pred_min = np.min(predicted)
+print("Prediction limits ",pred_min, pred_med)
 
-plt.plot(predicted)
-plt.plot(test_data[:,0,0,0])
-plt.legend(["Predicted", "Test data"])
+#pred_scaled = (predicted - pred_min)/(pred_med) * (test_med) + test_min
+#test_scaled = 1000*test_data[:,0,0,0]
+
+test_scaled = test_data[:,0,0,0] - np.min(test_data[:,0,0,0])
+pred_scaled = predicted - pred_min
+scale_coeff = np.max(test_scaled)/np.max(pred_scaled)
+scaled_pred = -scale_coeff*pred_scaled
+
+plt.plot(test_scaled)
+#plt.plot(predicted)
+plt.plot(scaled_pred - np.min(scaled_pred))
+plt.legend(["Test data","Predicted"]) 
 plt.show()
 
 p_real = []
@@ -136,8 +149,8 @@ print ("MAE:", MAE(p_real, l_real))
 print ("MAPE:", MAPE(p_real, l_real))
 print ("RMSE:", RMSE(p_real, l_real))
 
-for i in range(0,len(p_real)):
-	print(p_real[i])
+#for i in range(0,len(p_real)):
+#	print(p_real[i])
 
 # end = time.clock()
 

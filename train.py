@@ -20,12 +20,12 @@ from keras.callbacks import ModelCheckpoint
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'basel_data', 1, "basel_data")
+data1 = load_csv(r'basel_data', 6, "basel_data")
 data2 = load_csv(r'basel_data', 2, "basel_data")
 data3 = load_csv(r'basel_data', 3, "basel_data")
 data4 = load_csv(r'basel_data', 4, "basel_data")
 data5 = load_csv(r'basel_data', 5, "basel_data")
-data6 = load_csv(r'basel_data', 6, "basel_data")
+data6 = load_csv(r'basel_data', 1, "basel_data")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -80,6 +80,8 @@ lstm_outd2 = Bidirectional(LSTM(15, return_sequences=False))(lstm_outd1)
 
 x = keras.layers.concatenate([lstm_out3, lstm_outw2, lstm_outd2])
 x = Dense(20, activation='relu')(x)
+#x = Dense(10, activation='relu')(x)
+x = Dense(15, activation='relu')(x)
 x = Dense(10, activation='relu')(x)
 main_output = Dense(1, activation='relu', kernel_regularizer=keras.regularizers.l1_l2(0.1, 0.1), name='main_output')(x)
 model = Model(inputs = [main_input, auxiliary_input_w, auxiliary_input_d], outputs = main_output)
