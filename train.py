@@ -82,7 +82,7 @@ lstm_outd1a = Bidirectional(LSTM(15, return_sequences=True))(lstm_outd1)
 lstm_outd1b = Bidirectional(LSTM(15, return_sequences=True))(lstm_outd1a)
 lstm_outd2 = Bidirectional(LSTM(15, return_sequences=False))(lstm_outd1b)
 
-x = keras.layers.concatenate([lstm_out3, lstm_outw2, lstm_outd2])
+x = keras.layers.concatenate([lstm_out3, lstm_outw2, lstm_outd2,lstm_outd2])
 x = Dense(20, activation='relu')(x)
 #x = Dense(10, activation='relu')(x)
 x = Dense(15, activation='relu')(x)
