@@ -16,6 +16,7 @@ from attention_with_context import AttentionWithContext
 from keras.layers.wrappers import TimeDistributed
 from keras.callbacks import ModelCheckpoint
 
+ROW = 168
 
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
@@ -37,7 +38,7 @@ data6 = load_csv(r'basel_data', 1, "basel_data")
 
 epoch = 50
 day = 288
-week = 2016
+week = ROW
 seq_len = 15
 #1=5min, 3=15min, 6=30min, 12=60min
 pre_len = 12
@@ -82,7 +83,7 @@ lstm_outd1a = Bidirectional(LSTM(15, return_sequences=True))(lstm_outd1)
 lstm_outd1b = Bidirectional(LSTM(15, return_sequences=True))(lstm_outd1a)
 lstm_outd2 = Bidirectional(LSTM(15, return_sequences=False))(lstm_outd1b)
 
-x = keras.layers.concatenate([lstm_out3, lstm_outw2, lstm_outd2,lstm_outd2])
+x = keras.layers.concatenate([lstm_out3, lstm_outw2, lstm_outd2])
 x = Dense(20, activation='relu')(x)
 #x = Dense(10, activation='relu')(x)
 x = Dense(15, activation='relu')(x)
@@ -119,7 +120,7 @@ print("Save model to disk")
 predicted = predict_point_by_point(model, [test_data, test_w, test_d])
 p_real = []
 l_real = []
-row=2016
+row=ROW
 for i in range(row):
     p_real.append(predicted[i] * test_med + test_min)
     l_real.append(test_l[i] * test_med + test_min)

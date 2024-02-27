@@ -3,6 +3,7 @@ import csv
 import os
 from matplotlib import pyplot as plt
 
+ROW = 168
 
 def load_data(data, seq_len=15, his=1, pre_sens_num=1):
     max = np.max(data)
@@ -25,10 +26,10 @@ def load_data(data, seq_len=15, his=1, pre_sens_num=1):
     x_d = []
     label = []
     for i in range (len(train)):
-        if i >= 2016:
+        if i >= ROW:
             x_data.append(x_train[i])
-            x_w.append(x_wd_train[i - 2016 + 8])
-            x_d.append(x_wd_train[i - 288 + 8])
+            x_w.append(x_wd_train[i - ROW + 8])
+            x_d.append(x_wd_train[i - 24 + 8])
             label.append(y_train[i])
     x_data = np.array(x_data)
     x_w = np.array(x_w)
@@ -40,7 +41,7 @@ def generate_data(data1, data2, data3, data4, data5, data6, seq_len, pre_len, pr
     data = np.stack((data1, data2, data3, data4, data5, data6), axis=1)
     x_data, x_w, x_d, label, med, min = load_data(data, seq_len ,pre_len, pre_sens_num)
 
-    row = 2016
+    row = ROW
     train_x_data = x_data[:-row]
     test_data = x_data[-row:]
     train_w = x_w[:-row]
