@@ -16,6 +16,8 @@ from attention_with_context import AttentionWithContext
 from keras.layers.wrappers import TimeDistributed
 from keras.callbacks import ModelCheckpoint
 
+WEEK = 168
+DAY = 24
 
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
@@ -36,8 +38,8 @@ data6 = load_csv(r'basel_data', 1, "basel_data")
 # data7 = load_csv(r'data-urban/401137', 8, "urban")
 
 epoch = 50
-day = 288
-week = 2016
+day = DAY
+week = WEEK
 seq_len = 15
 #1=5min, 3=15min, 6=30min, 12=60min
 pre_len = 12
@@ -119,7 +121,7 @@ print("Save model to disk")
 predicted = predict_point_by_point(model, [test_data, test_w, test_d])
 p_real = []
 l_real = []
-row=2016
+row=WEEK
 for i in range(row):
     p_real.append(predicted[i] * test_med + test_min)
     l_real.append(test_l[i] * test_med + test_min)
