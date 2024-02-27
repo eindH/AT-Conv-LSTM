@@ -3,7 +3,7 @@ import csv
 import os
 from matplotlib import pyplot as plt
 
-WEEK = 168
+WEEK = 8760
 DAY = 24
 
 def load_data(data, seq_len=15, his=1, pre_sens_num=1):
