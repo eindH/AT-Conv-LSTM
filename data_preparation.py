@@ -3,7 +3,7 @@ import csv
 import os
 from matplotlib import pyplot as plt
 
-WEEK = 8760
+WEEK = 9
 DAY = 24
 
 def load_data(data, seq_len=15, his=1, pre_sens_num=1):
@@ -17,11 +17,18 @@ def load_data(data, seq_len=15, his=1, pre_sens_num=1):
     result = []
     for index in range(len(data_nor) - sequence_length):
         result.append(data_nor[index: index + sequence_length])
+    print("")
+    print("Max index ", len(data_nor) - sequence_length)
     result = np.stack(result, axis=0)
+    print("Result", result.shape)
     train = result[:]
+    print("train", train.shape)
     x_train = train[:, :seq_len]
+    print("X Train", x_train.shape)
     x_wd_train = train[:, :seq_len, pre_sens_num-1]
+    print("x_wd_train", x_wd_train.shape)
     y_train = train[:, -1, pre_sens_num-1]
+    print("y_train", y_train.shape)
     x_data = []
     x_w = []
     x_d = []

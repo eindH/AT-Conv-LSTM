@@ -16,7 +16,7 @@ from attention_with_context import AttentionWithContext
 from keras.layers.wrappers import TimeDistributed
 from keras.callbacks import ModelCheckpoint
 
-WEEK = 168
+WEEK = 9
 DAY = 24
 
 #config = tf.ConfigProto()
@@ -41,10 +41,10 @@ epoch = 50
 day = DAY
 week = WEEK
 seq_len = 15
-#1=5min, 3=15min, 6=30min, 12=60min
+#1=1h, 3=3h, 6=6h, 12=12h
 pre_len = 12
 #data 1-7
-pre_sens_num = 1
+pre_sens_num = 1 
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
