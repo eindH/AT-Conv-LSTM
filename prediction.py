@@ -132,9 +132,16 @@ print ("MAE:", MAE(p_real, l_real))
 print ("MAPE:", MAPE(p_real, l_real))
 print ("RMSE:", RMSE(p_real, l_real))
 
-for i in range(0,len(p_real)):
-	print(p_real[i])
+#for i in range(0,len(p_real)):
+#	print(p_real[i])
 
-print("Predicted shape ", predicted.shape)
+#print("Predicted shape ", predicted.shape)
 # end = time.clock()
 
+plt.plot(l_real)
+plt.plot(p_real)
+plt.legend(["Data","Prediction"])
+plt.xlabel("Time [samples]")
+plt.ylabel("Flow [#cars in 5 mins]")
+plt.title("Flow on a road")
+plt.show()
