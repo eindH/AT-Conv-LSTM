@@ -26,8 +26,21 @@ from keras.callbacks import Callback
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'cloud_attenuation', 5, "cloud")
-data2 = load_csv(r'cloud_attenuation', 4, "cloud")
+data1 = load_csv(r'combined_attenuation', 14, "combined")
+data2 = load_csv(r'combined_attenuation', 1, "combined")
+data3 = load_csv(r'combined_attenuation', 2, "combined")
+data4 = load_csv(r'combined_attenuation', 3, "combined")
+data5 = load_csv(r'combined_attenuation', 4, "combined")
+data6 = load_csv(r'combined_attenuation', 5, "combined")
+data7 = load_csv(r'combined_attenuation', 6, "combined")
+data8 = load_csv(r'combined_attenuation', 7, "combined")
+data9 = load_csv(r'combined_attenuation', 8, "combined")
+data10 = load_csv(r'combined_attenuation', 9, "combined")
+data11 = load_csv(r'combined_attenuation', 10, "combined")
+data12 = load_csv(r'combined_attenuation', 11, "combined")
+data13 = load_csv(r'combined_attenuation', 12, "combined")
+data14 = load_csv(r'combined_attenuation', 13, "combined")
+data15 = load_csv(r'combined_attenuation', 0, "combined")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -47,7 +60,7 @@ pre_sens_num = 1
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
-	= generate_data(data1, data2, seq_len, pre_len, pre_sens_num)
+	= generate_data(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, seq_len, pre_len, pre_sens_num)
 
 train_data = np.reshape(train_data,(train_data.shape[0], train_data.shape[1], train_data.shape[2], 1))
 train_w = np.reshape(train_w,(train_w.shape[0], train_w.shape[1], 1))
