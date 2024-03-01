@@ -27,11 +27,11 @@ from keras.callbacks import Callback
 #config.gpu_options.allow_growth = True
 print('loading data...')
 data1 = load_csv(r'rain_attenuation', 6, "rain")
-data2 = load_csv(r'rain_attenuation', 2, "rain")
-data3 = load_csv(r'rain_attenuation', 3, "rain")
-data4 = load_csv(r'rain_attenuation', 4, "rain")
-data5 = load_csv(r'rain_attenuation', 5, "rain")
-data6 = load_csv(r'rain_attenuation', 1, "rain")
+data2 = load_csv(r'rain_attenuation', 1, "rain")
+data3 = load_csv(r'rain_attenuation', 2, "rain")
+data4 = load_csv(r'rain_attenuation', 3, "rain")
+data5 = load_csv(r'rain_attenuation', 4, "rain")
+data6 = load_csv(r'rain_attenuation', 5, "rain")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -112,7 +112,7 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer,'AttentionWithContext':
 	loaded_model_json = json_file.read()
 	json_file.close()
 	cnn_lstm_model = model_from_json(loaded_model_json)
-	cnn_lstm_model.load_weights("model/model_0025-0.0035.h5", 'r')
+	cnn_lstm_model.load_weights("model/model_0015-0.0001.h5", 'r')
 
 
 # start =time.clock()
@@ -137,3 +137,10 @@ for i in range(0,len(p_real)):
 print("Predicted shape ", predicted.shape)
 # end = time.clock()
 
+plt.plot(l_real)
+plt.plot(p_real)
+plt.legend(["Data","Prediction"])
+plt.xlabel("Time [samples]")
+plt.ylabel("Flow [#cars in 5 mins]")
+plt.title("Flow on a road")
+plt.show()

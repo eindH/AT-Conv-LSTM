@@ -20,11 +20,18 @@ from keras.callbacks import ModelCheckpoint
 #config.gpu_options.allow_growth = True
 print('loading data...')
 data1 = load_csv(r'rain_attenuation', 6, "rain")
-data2 = load_csv(r'rain_attenuation', 2, "rain")
-data3 = load_csv(r'rain_attenuation', 3, "rain")
-data4 = load_csv(r'rain_attenuation', 4, "rain")
-data5 = load_csv(r'rain_attenuation', 5, "rain")
-data6 = load_csv(r'rain_attenuation', 1, "rain")
+data2 = load_csv(r'rain_attenuation', 1, "rain")
+data3 = load_csv(r'rain_attenuation', 2, "rain")
+data4 = load_csv(r'rain_attenuation', 3, "rain")
+data5 = load_csv(r'rain_attenuation', 4, "rain")
+data6 = load_csv(r'rain_attenuation', 5, "rain")
+
+#data1 = load_csv(r'rain_attenuation', 6, "rain")
+#data2 = load_csv(r'rain_attenuation', 2, "rain")
+#data3 = load_csv(r'rain_attenuation', 3, "rain")
+#data4 = load_csv(r'rain_attenuation', 4, "rain")
+#data5 = load_csv(r'rain_attenuation', 5, "rain")
+#data6 = load_csv(r'rain_attenuation', 1, "rain")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
