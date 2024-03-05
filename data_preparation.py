@@ -35,8 +35,8 @@ def load_data(data, seq_len=15, his=1, pre_sens_num=1):
     label = np.array(label)
     return x_data,x_w,x_d,label,med,min
 
-def generate_data(data1, data2, seq_len, pre_len, pre_sens_num):
-    data = np.stack((data1, data2), axis=1)
+def generate_data(data1, data2, data3, data4, data5, data6, seq_len, pre_len, pre_sens_num):
+    data = np.stack((data1, data2, data3, data4, data5, data6), axis=1)
     x_data, x_w, x_d, label, med, min = load_data(data, seq_len ,pre_len, pre_sens_num)
 
     row = 2016
@@ -67,6 +67,8 @@ def load_csv(fir_dir, col, scenario):
         file_all=['1.csv']
     if scenario == "cloud":
         file_all=['2.csv']
+    if scenario == "multi-city":
+        file_all=['2d_grid.csv']
     file_name = []
     for i in file_all:
         file_name.append(os.path.join(fir_dir, i))
