@@ -112,7 +112,7 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer,'AttentionWithContext':
 	loaded_model_json = json_file.read()
 	json_file.close()
 	cnn_lstm_model = model_from_json(loaded_model_json)
-	cnn_lstm_model.load_weights("model/model_0035-0.0006.h5", 'r')
+	cnn_lstm_model.load_weights("model/model_0040-0.0007.h5", 'r')
 
 
 # start =time.clock()
@@ -139,5 +139,9 @@ print ("RMSE:", RMSE(p_real, l_real))
 for i in range(0,len(p_real)):
 	print(p_real[i])
 
+plt.plot(p_real)
+plt.plot(l_real)
+plt.legend(["p_real", "l_real"])
+plt.show()
 # end = time.clock()
 
