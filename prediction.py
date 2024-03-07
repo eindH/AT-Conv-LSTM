@@ -26,12 +26,10 @@ from keras.callbacks import Callback
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'basel_data', 1, "basel_data")
-data2 = load_csv(r'basel_data', 2, "basel_data")
-data3 = load_csv(r'basel_data', 3, "basel_data")
-data4 = load_csv(r'basel_data', 4, "basel_data")
-data5 = load_csv(r'basel_data', 5, "basel_data")
-data6 = load_csv(r'basel_data', 6, "basel_data")
+data1 = load_csv(r'BernPrecipitation', 2, "BernPrecipitation")
+data2 = load_csv(r'BernPrecipitation', 0, "BernPrecipitation")
+data3 = load_csv(r'BernPrecipitation', 1, "BernPrecipitation")
+#data4 = load_csv(r'BernPrecipitation', 3, "BernPrecipitation")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -51,7 +49,7 @@ pre_sens_num = 1
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
-	= generate_data(data1, data2, data3, data4, data5, data6, seq_len, pre_len, pre_sens_num)
+	= generate_data(data1, data2, data3, seq_len, pre_len, pre_sens_num)
 
 train_data = np.reshape(train_data,(train_data.shape[0], train_data.shape[1], train_data.shape[2], 1))
 train_w = np.reshape(train_w,(train_w.shape[0], train_w.shape[1], 1))
@@ -112,7 +110,7 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer,'AttentionWithContext':
 	loaded_model_json = json_file.read()
 	json_file.close()
 	cnn_lstm_model = model_from_json(loaded_model_json)
-	cnn_lstm_model.load_weights("model/model_0040-0.0007.h5", 'r')
+	cnn_lstm_model.load_weights("model/model_0050-0.0001.h5", 'r')
 
 
 # start =time.clock()
