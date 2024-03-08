@@ -19,12 +19,13 @@ from keras.callbacks import ModelCheckpoint
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'rain_attenuation', 6, "rain")
+data1 = load_csv(r'rain_attenuation', 7, "rain")
 data2 = load_csv(r'rain_attenuation', 2, "rain")
 data3 = load_csv(r'rain_attenuation', 3, "rain")
 data4 = load_csv(r'rain_attenuation', 4, "rain")
 data5 = load_csv(r'rain_attenuation', 5, "rain")
-data6 = load_csv(r'rain_attenuation', 1, "rain")
+data6 = load_csv(r'rain_attenuation', 6, "rain")
+data7 = load_csv(r'rain_attenuation', 1, "rain")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -45,7 +46,7 @@ pre_sens_num = 1
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
-	= generate_data(data1, data2, data3, data4, data5, data6, seq_len, pre_len, pre_sens_num)
+	= generate_data(data1, data2, data3, data4, data5, data6, data7,seq_len, pre_len, pre_sens_num)
 
 train_data = np.reshape(train_data,(train_data.shape[0], train_data.shape[1], train_data.shape[2], 1))
 train_w = np.reshape(train_w,(train_w.shape[0], train_w.shape[1], 1))
@@ -57,7 +58,7 @@ test_w = np.reshape(test_w,(test_w.shape[0], test_w.shape[1], 1))
 
 
 # conv-lstm
-main_input = Input((15, 6, 1),name='main_input')
+main_input = Input((15, 7, 1),name='main_input')
 con1 = TimeDistributed(Conv1D(filters=15, kernel_size=3, padding='same', activation='relu', strides=1))(main_input)
 con2 = TimeDistributed(Conv1D(filters=15, kernel_size=3, padding='same', activation='relu', strides=1))(con1)
 #con3 = TimeDistributed(AveragePooling1D(pool_size=2))(con2)
