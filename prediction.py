@@ -26,8 +26,29 @@ from keras.callbacks import Callback
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth = True
 print('loading data...')
-data1 = load_csv(r'cloud_attenuation', 5, "cloud")
-data2 = load_csv(r'cloud_attenuation', 4, "cloud")
+data1 = load_csv(r'cloud_attenuation', 7, "cloud")
+data2 = load_csv(r'cloud_attenuation', 2, "cloud")
+data3 = load_csv(r'cloud_attenuation', 3, "cloud")
+data4 = load_csv(r'cloud_attenuation', 4, "cloud")
+data5 = load_csv(r'cloud_attenuation', 5, "cloud")
+data6 = load_csv(r'cloud_attenuation', 6, "cloud")
+data7 = load_csv(r'cloud_attenuation', 1, "cloud")
+data8 = load_csv(r'cloud_attenuation', 8, "cloud")
+data9 = load_csv(r'cloud_attenuation', 9, "cloud")
+data10 = load_csv(r'cloud_attenuation', 10, "cloud")
+data11 = load_csv(r'cloud_attenuation', 11, "cloud")
+data12 = load_csv(r'cloud_attenuation', 12, "cloud")
+data13 = load_csv(r'cloud_attenuation', 13, "cloud")
+data14 = load_csv(r'cloud_attenuation', 14, "cloud")
+data15 = load_csv(r'cloud_attenuation', 15, "cloud")
+data16 = load_csv(r'cloud_attenuation', 16, "cloud")
+data17 = load_csv(r'cloud_attenuation', 17, "cloud")
+data18 = load_csv(r'cloud_attenuation', 18, "cloud")
+data19 = load_csv(r'cloud_attenuation', 19, "cloud")
+data20 = load_csv(r'cloud_attenuation', 20, "cloud")
+data21 = load_csv(r'cloud_attenuation', 21, "cloud")
+data22 = load_csv(r'cloud_attenuation', 22, "cloud")
+data23 = load_csv(r'cloud_attenuation', 23, "cloud")
 
 # data1 = load_csv(r'data-urban/401190', 5, "urban")
 # data2 = load_csv(r'data-urban/401144', 7, "urban")
@@ -47,7 +68,7 @@ pre_sens_num = 1
 
 #train,test
 train_data, train_w, train_d, label, test_data, test_w, test_d, test_l, test_med, test_min\
-	= generate_data(data1, data2, seq_len, pre_len, pre_sens_num)
+	= generate_data(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16, data17, data18, data19, data20, data21, data22, data23, seq_len, pre_len, pre_sens_num)
 
 train_data = np.reshape(train_data,(train_data.shape[0], train_data.shape[1], train_data.shape[2], 1))
 train_w = np.reshape(train_w,(train_w.shape[0], train_w.shape[1], 1))
@@ -108,7 +129,7 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer,'AttentionWithContext':
 	loaded_model_json = json_file.read()
 	json_file.close()
 	cnn_lstm_model = model_from_json(loaded_model_json)
-	cnn_lstm_model.load_weights("model/model_0025-0.0035.h5", 'r')
+	cnn_lstm_model.load_weights("model/model_0005-0.0001.h5", 'r')
 
 
 # start =time.clock()
@@ -130,6 +151,9 @@ print ("RMSE:", RMSE(p_real, l_real))
 for i in range(0,len(p_real)):
 	print(p_real[i])
 
+plt.plot(p_real)
+plt.plot(l_real)
+plt.show()
 print("Predicted shape ", predicted.shape)
 # end = time.clock()
 
